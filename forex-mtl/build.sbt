@@ -49,7 +49,8 @@ libraryDependencies ++= Seq(
   Libraries.enumeratumCirce,
   Libraries.pureConfig,
   Libraries.logback,
-  Libraries.scalaTest        % Test,
-  Libraries.scalaCheck       % Test,
-  Libraries.catsScalaCheck   % Test
+  Libraries.scalaTest           % Test,
+  Libraries.scalaCheck          % Test,
+  Libraries.scalaTestScalaCheck % Test,
+  Libraries.catsScalaCheck      % Test
 )

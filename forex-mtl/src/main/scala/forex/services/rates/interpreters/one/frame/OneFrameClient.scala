@@ -16,13 +16,13 @@ import org.http4s.{Header, Request, Response}
 import scala.util.control.NonFatal
 
 class OneFrameClient[F[_]: Sync](httpClient: Client[F],
-                                 config: OneFrameConfig) extends Http4sClientDsl[F] {
+                                 config: OneFrameConfig) extends OneFrameAlgebra[F] with Http4sClientDsl[F] {
 
   import QueryParams._, Protocol._
   import org.http4s.circe.CirceEntityDecoder._
 
   //TODO: logging around third-party service interactions
-  def getRates(pairs: NonEmptyList[Rate.Pair]): F[Error Either GetRatesSuccessfulResponse] =
+  override def getRates(pairs: NonEmptyList[Rate.Pair]): F[Error Either GetRatesSuccessfulResponse] =
     EitherT(httpClient.expectOr[GetRatesResponse](createRatesRequest(pairs))(oneFrameLookupFailed)).leftMap(toError).value.recover {
       case NonFatal(error @ Error.OneFrameLookupFailed(_)) => error.asLeft
       case NonFatal(error)                                 => Error.OneFrameResponseDecodingFailed(error.getMessage).asLeft

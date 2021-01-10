@@ -1,10 +1,14 @@
 package forex.domain
 
 import cats.Show
+import enumeratum.EnumEntry.Uppercase
+import enumeratum.{Cats, Enum, EnumEntry}
 
-sealed trait Currency
+import scala.collection.immutable
 
-object Currency {
+sealed trait Currency extends EnumEntry with Uppercase
+
+object Currency extends Enum[Currency] {
   case object AUD extends Currency
   case object CAD extends Currency
   case object CHF extends Currency
@@ -15,28 +19,15 @@ object Currency {
   case object SGD extends Currency
   case object USD extends Currency
 
-  implicit val show: Show[Currency] = Show.show {
-    case AUD => "AUD"
-    case CAD => "CAD"
-    case CHF => "CHF"
-    case EUR => "EUR"
-    case GBP => "GBP"
-    case NZD => "NZD"
-    case JPY => "JPY"
-    case SGD => "SGD"
-    case USD => "USD"
-  }
+  implicit val show: Show[Currency] =
+    Cats.showForEnum
 
-  def fromString(s: String): Currency = s.toUpperCase match {
-    case "AUD" => AUD
-    case "CAD" => CAD
-    case "CHF" => CHF
-    case "EUR" => EUR
-    case "GBP" => GBP
-    case "NZD" => NZD
-    case "JPY" => JPY
-    case "SGD" => SGD
-    case "USD" => USD
-  }
+  // Q: Do we need `maybeFromString` wrapper function at all?
+  //    For me, it provides a nicer API/usage view
+  @inline def maybeFromString(s: String): Option[Currency] =
+    withNameInsensitiveOption(s)
+
+  override val values: immutable.IndexedSeq[Currency] =
+    findValues
 
 }

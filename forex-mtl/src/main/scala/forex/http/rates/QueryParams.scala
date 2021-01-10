@@ -2,8 +2,9 @@ package forex.http.rates
 
 import cats.data.ValidatedNel
 import cats.syntax.either._
+import cats.syntax.show._
 import forex.domain.Currency
-import org.http4s.dsl.impl.QueryParamDecoderMatcher
+import org.http4s.dsl.impl.OptionalValidatingQueryParamDecoderMatcher
 import org.http4s.{ParseFailure, QueryParamDecoder, QueryParameterValue}
 
 object QueryParams {
@@ -19,7 +20,7 @@ object QueryParams {
           .toValidatedNel
     }
 
-  object FromQueryParam extends QueryParamDecoderMatcher[Currency]("from")
-  object ToQueryParam extends QueryParamDecoderMatcher[Currency]("to")
+  object FromQueryParam extends OptionalValidatingQueryParamDecoderMatcher[Currency](QueryParamName.From.show)
+  object ToQueryParam extends OptionalValidatingQueryParamDecoderMatcher[Currency](QueryParamName.To.show)
 
 }

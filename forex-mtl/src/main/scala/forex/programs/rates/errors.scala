@@ -16,6 +16,7 @@ object errors {
 
   def toProgramError(error: RatesServiceError): Error = error match {
     case RatesServiceError.OneFrameCacheMissingPair(pair)      => Error.RatesCacheLookupFailed(show"No cached rate found between currencies $pair")
+    case RatesServiceError.OneFrameCacheEmpty                  => Error.RatesCacheLookupFailed("Cannot initialize rates cache")
     case RatesServiceError.OneFrameResponseDecodingFailed(msg) => Error.RateLookupFailed(msg)
     case RatesServiceError.OneFrameLookupFailed(msg)           => Error.RateLookupFailed(msg)
   }

@@ -12,6 +12,7 @@ object errors {
     final case class OneFrameLookupFailed(msg: String) extends Error
 
     final case class OneFrameCacheMissingPair(pair: Rate.Pair) extends Error
+    final case object OneFrameCacheEmpty extends Error
   }
 
 }

@@ -8,7 +8,7 @@ Stopping work at this point, cause already worked on the exercise over the weeke
 Tests are the main thing I would focus on next.
 
 Solution contains some comments marked with `Q: `.
-Those are typically some biases or questions I typically raising during PR review process.
+Those are typically some biases or questions I usually raising during PR review process.
 Leaving them in the code as additional notes.
 
 ### Focus Areas

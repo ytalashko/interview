@@ -34,7 +34,7 @@ As a separate note, having more time, I would implement error-to-http-response m
 In case of `one-frame` service unavailability, we also can provide outdated rates
 (this should be signaled by the response structure), or just error
 * Code structuring  
-This mostly caused by my very small experience with Tagless Final.
+This mostly caused by my very small experience with Tagless Final.  
 One of the points, I feel like `OneFrameCached` logic should probably go to the `programs` module.
 
 ### Assumptions & Simplifications
@@ -52,7 +52,7 @@ which itself is a distributed problem (as synchronization should be done across 
 
 Solution assumes `one-frame` service will provide responses comparatively quickly, and in case of valid structure data will be fresh.  
 This doesn't mean solution will fail to work in case of slow `one-frame` responses, but rates may be outdated (failed requirement) under certain conditions,
-e.g. there is no checking for the case of `one-frame` services provides already outdated rates.  
+e.g. there is no checking for the case of `one-frame` service provides already outdated rates.  
 For example, `one-frame` response contains rates with `time_stamp` more than 5 minutes back in time (as per requirements).  
 In such cases solution will provide outdated rates to the API consumers.  
 On the `one-frame` slow responses topic, if that's the case:

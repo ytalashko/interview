@@ -33,7 +33,7 @@ As a separate note, having more time, I would implement error-to-http-response m
 * Retries (with circuit breaker) for the `one-frame` interactions  
 In case of `one-frame` service unavailability, we also can provide outdated rates
 (this should be signaled by the response structure), or just error
-* Code structuring
+* Code structuring  
 This mostly caused by my very small experience with Tagless Final.
 One of the points, I feel like `OneFrameCached` logic should probably go to the `programs` module.
 
